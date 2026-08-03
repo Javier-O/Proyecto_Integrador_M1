@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generador de Paletas de Color</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Encabezado de la página -->
+  <header>
+    <h1>🎨 Generador de Paletas de Color</h1>
+    <p>Genera paletas aleatorias en formato HEX y HSL</p>
+  </header>
+
+  <!-- Sección de controles: aquí el usuario elige tamaño y formato -->
+  <section class="controles">
+
+    <div class="control">
+      <label for="tamano">Tamaño de la paleta:</label>
+      <select id="tamano">
+        <option value="6">6 colores</option>
+        <option value="8">8 colores</option>
+        <option value="9">9 colores</option>
+      </select>
+    </div>
+
+    <div class="control">
+      <label for="formato">Formato del código:</label>
+      <select id="formato">
+        <option value="hex">HEX</option>
+        <option value="hsl">HSL</option>
+      </select>
+    </div>
+
+    <!-- Botón central que dispara la generación de la paleta -->
+    <button id="btnGenerar">Generar Paleta</button>
+
+  </section>
+
+  <!-- Aquí se van a insertar los colores generados con JavaScript -->
+  <main>
+    <section id="paleta" class="paleta"></section>
+  </main>
+
+  <footer>
+    <p>Proyecto Integrador - Módulo 1</p>
+  </footer>
+
+  <!-- El script va al final para asegurar que el HTML ya cargó -->
+  <script src="script.js"></script>
+</body>
+</html>

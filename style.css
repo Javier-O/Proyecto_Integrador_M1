@@ -1,0 +1,109 @@
+/* ===== Estilos generales ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* facilita el manejo de tamaños con padding incluido */
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f4f4f4;
+  color: #222;
+  text-align: center;
+}
+
+header {
+  padding: 30px 20px;
+  background-color: #222;
+  color: white;
+}
+
+header h1 {
+  margin-bottom: 5px;
+}
+
+/* ===== Sección de controles ===== */
+.controles {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap; /* si no cabe en una fila, los baja a otra */
+  padding: 20px;
+}
+
+.control {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.control label {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+select {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  background-color: #222;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #444;
+}
+
+/* ===== Contenedor de la paleta ===== */
+.paleta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  padding: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Cada tarjeta de color individual (se crea dinámicamente en JS) */
+.color-card {
+  width: 140px;
+  height: 160px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+/* El bloque de color ocupa la mayor parte de la tarjeta */
+.color-muestra {
+  flex-grow: 1;
+}
+
+/* El texto con el código del color va abajo */
+.color-codigo {
+  background-color: white;
+  padding: 8px 5px;
+  font-size: 13px;
+  font-weight: bold;
+  word-break: break-all; /* evita que el texto HSL se salga de la tarjeta */
+}
+
+footer {
+  padding: 20px;
+  font-size: 13px;
+  color: #777;
+}
