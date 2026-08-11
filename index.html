@@ -37,11 +37,22 @@
     <!-- Botón central que dispara la generación de la paleta -->
     <button id="btnGenerar">Generar Paleta</button>
 
+    <!-- Botón para guardar la paleta actual en localStorage -->
+    <button id="btnGuardar">Guardar Paleta</button>
+
   </section>
 
   <!-- Aquí se van a insertar los colores generados con JavaScript -->
   <main>
     <section id="paleta" class="paleta"></section>
+
+    <!-- Sección donde se listan las paletas guardadas en localStorage -->
+    <section class="guardadas">
+      <h2>Paletas Guardadas</h2>
+      <div id="listaGuardadas" class="lista-guardadas">
+        <!-- Aquí JS va a insertar las miniaturas de las paletas guardadas -->
+      </div>
+    </section>
   </main>
 
   <footer>

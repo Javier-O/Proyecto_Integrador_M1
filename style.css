@@ -7,14 +7,14 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background-color: hwb(0 10% 90%);
+  background-color: hwb(0 20% 80%);
   color: #000000;
   text-align: center;
 }
 
 header {
   padding: 30px 20px;
-  background-color: #272727;
+  background-color: #222;
   color: white;
 }
 
@@ -35,12 +35,15 @@ header h1 {
 .control {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
 }
 
 .control label {
+  padding: 5px 10px;
+  border-radius: 6px;
   font-size: 14px;
   margin-bottom: 5px;
+  background-color: #222;
+  color: white;
 }
 
 select {
@@ -86,11 +89,38 @@ button:hover {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  position: relative; /* necesario para poder posicionar el candado encima */
+  cursor: pointer; /* indica que se puede hacer clic para copiar el color */
 }
 
 /* El bloque de color ocupa la mayor parte de la tarjeta */
 .color-muestra {
   flex-grow: 1;
+  position: relative;
+}
+
+/* Botón de candado, ubicado arriba a la derecha de cada tarjeta */
+.btn-candado {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+/* Cuando el color está bloqueado, resaltamos el candado */
+.btn-candado.bloqueado {
+  background-color: #222;
+  color: white;
 }
 
 /* El texto con el código del color va abajo */
@@ -100,6 +130,76 @@ button:hover {
   font-size: 13px;
   font-weight: bold;
   word-break: break-all; /* evita que el texto HSL se salga de la tarjeta */
+  transition: color 0.2s ease;
+}
+
+/* Se aplica momentáneamente al copiar el código, como retroalimentación visual */
+.color-codigo.copiado {
+  color: #2e8b57; /* verde, para indicar éxito */
+}
+
+/* ===== Sección de paletas guardadas ===== */
+.guardadas {
+  max-width: 1000px;
+  margin: 0 auto 40px auto;
+  padding: 0 30px;
+}
+
+.guardadas h2 {
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.lista-guardadas {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Cada fila representa UNA paleta guardada */
+.paleta-guardada {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: white;
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* Contenedor de las miniaturas de color dentro de la fila */
+.mini-colores {
+  display: flex;
+  flex-grow: 1;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer; /* al hacer clic en la fila, se carga esa paleta */
+  height: 30px;
+}
+
+.mini-color {
+  flex: 1; /* cada mini color ocupa el mismo espacio */
+}
+
+/* Botón para eliminar una paleta guardada */
+.btn-eliminar {
+  background-color: #c0392b;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.btn-eliminar:hover {
+  background-color: #922b21;
+}
+
+/* Texto que se muestra cuando no hay paletas guardadas todavía */
+.sin-guardadas {
+  color: #777;
+  font-size: 14px;
 }
 
 footer {
