@@ -9,6 +9,10 @@ const selectTamano = document.getElementById("tamano");
 const selectFormato = document.getElementById("formato");
 const contenedorPaleta = document.getElementById("paleta");
 const contenedorGuardadas = document.getElementById("listaGuardadas");
+const toast = document.getElementById("toast");
+
+// Variable para controlar el temporizador del toast (evita que se traslapen mensajes)
+let temporizadorToast = null;
 
 // Guardamos aquí la paleta que se está mostrando actualmente.
 // Cada color es un objeto: { h, s, l, bloqueado }
@@ -66,6 +70,19 @@ function hslToHex(h, s, l) {
   return `#${toHex(r)}${toHex(g)}${toHex(b)}`.toUpperCase();
 }
 
+// Toast: microfeedback visible reutilizable en toda la página
+function mostrarToast(mensaje) {
+  if (temporizadorToast) {
+    clearTimeout(temporizadorToast);
+  }
+
+  toast.textContent = mensaje;
+  toast.classList.add("visible");
+
+  temporizadorToast = setTimeout(() => {
+    toast.classList.remove("visible");
+  }, 2000); // se oculta después de 2 segundos
+}
 // ------------------------------------------------------
 // 4. Copiar un código HEX al portapapeles
 //    Recibe el texto a copiar y el <p> donde mostramos feedback visual
@@ -163,25 +180,30 @@ function renderizarPaleta() {
 //    Respeta los colores que estén bloqueados
 // ------------------------------------------------------
 function generarPaleta() {
-  // Leemos cuántos colores debe tener la paleta (viene como texto, lo convertimos a número)
   const cantidadColores = parseInt(selectTamano.value);
 
   const nuevaPaleta = [];
+  let huboColorBloqueado = false; // <-- NUEVO: variable para saber si conservamos algún color
 
   for (let i = 0; i < cantidadColores; i++) {
-    // Si en esa posición ya había un color y estaba bloqueado, lo conservamos
     if (paletaActual[i] && paletaActual[i].bloqueado) {
       nuevaPaleta.push(paletaActual[i]);
+      huboColorBloqueado = true; // <-- NUEVO: marcamos que sí hubo un bloqueado
     } else {
-      // Si no, generamos uno nuevo
       nuevaPaleta.push(generarColorHSL());
     }
   }
 
   paletaActual = nuevaPaleta;
   renderizarPaleta();
-}
 
+  // <-- NUEVO: mostramos el toast, con un mensaje distinto si había colores bloqueados
+  mostrarToast(
+    huboColorBloqueado
+      ? "Paleta generada (colores bloqueados conservados)"
+      : "Paleta generada"
+  );
+}
 // ------------------------------------------------------
 // 8. LOCALSTORAGE: leer, guardar, eliminar y mostrar paletas guardadas
 // ------------------------------------------------------
@@ -206,6 +228,7 @@ function guardarPaletaActual() {
   localStorage.setItem(CLAVE_LOCALSTORAGE, JSON.stringify(paletasGuardadas));
 
   mostrarPaletasGuardadas();
+  mostrarToast("Paleta guardada ✔");
 }
 
 // Elimina una paleta guardada según su posición en el arreglo
@@ -214,6 +237,7 @@ function eliminarPaletaGuardada(index) {
   paletasGuardadas.splice(index, 1); // quita 1 elemento en la posición "index"
   localStorage.setItem(CLAVE_LOCALSTORAGE, JSON.stringify(paletasGuardadas));
   mostrarPaletasGuardadas();
+  mostrarToast("Paleta eliminada");
 }
 
 // Carga una paleta guardada como la paleta actual (para poder verla/editarla de nuevo)
@@ -225,6 +249,7 @@ function cargarPaletaGuardada(colores) {
   selectTamano.value = paletaActual.length;
 
   renderizarPaleta();
+  mostrarToast("Paleta cargada");
 }
 
 // Dibuja en pantalla la lista de paletas guardadas, cada una como una fila de miniaturas

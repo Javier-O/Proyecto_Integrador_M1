@@ -207,3 +207,30 @@ footer {
   font-size: 13px;
   color: #777;
 }
+
+/* ===== Toast: microfeedback flotante para toda la página ===== */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+
+  /* Lo centramos horizontalmente y lo empezamos "escondido" un poco más abajo */
+  transform: translate(-50%, 20px);
+
+  background-color: #222;
+  color: white;
+  padding: 12px 22px;
+  border-radius: 8px;
+  font-size: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+
+  opacity: 0;
+  pointer-events: none; /* evita que el toast bloquee clics mientras está oculto */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Esta clase se agrega/quita desde JS para mostrar u ocultar el toast */
+.toast.visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
